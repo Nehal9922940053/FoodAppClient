@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react"
 import { Paper, Typography , styled} from "@mui/material"
 import { buy, handlePayment, verifyPayment, pastOrders } from "../../services/api"
-import { useGetUserID } from "../../hooks/useGetUserID"
+import { useGetUserID } from "../../hooks/getID"
 import { toast } from "react-toastify"
-//  import { KEY } from "../../keys/data"
 import { useDispatch } from "react-redux"
 import { clearCart } from "../../store/builderFunctions"
 import { useNavigate } from "react-router-dom"
@@ -36,20 +35,23 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
 
 
 const Total = ({ data }) => {
+    
 
+
+    const KEY ="rzp_test_vWzWE8E33NuyM3";
     const dispatch = useDispatch()
 
-    const [total, setTotal] = useState(0)
+    const [total, setTotal] = useState(0);
 
     const userID = useGetUserID();
 
     const [productDetails, setProductDetails] = useState([]);
 
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     useEffect(() => {
         totalAmount();
-    }, [data])
+    }, [data]);
 
     const totalAmount = () => {
         let price = 0;
@@ -93,7 +95,7 @@ const Total = ({ data }) => {
 
     const handleOpenRazorPay = (data) => {
         const options = {
-            // key: KEY,
+            key: KEY,
             amount: Number(data.amount) * 100,
             currency: data.currency,
             name: "FOOD ORDERING APP",
@@ -102,7 +104,6 @@ const Total = ({ data }) => {
                 console.log(response)
                 try {
                     const { data } = await verifyPayment(response)
-                    console.log(data)
                     dispatch(clearCart(userID))
                     buyProduct();
                     await pastOrders({ userID, productDetails})
@@ -113,7 +114,7 @@ const Total = ({ data }) => {
             }
         }
         const rzp = new window.Razorpay(options)
-        rzp.open();
+        rzp.open()
     }
 
     const payment = async (amt) => {
@@ -135,11 +136,14 @@ const Total = ({ data }) => {
 
     return (
         <>
+        <div>
             <StyledPaper>
-                <Typography >
-                    <h3>Total</h3>
-                    <span>Cart Items({data?.length - 1})</span>
-                </Typography>
+                <div>
+                    <Typography>
+                        <Typography variant="h3" component="div">Total</Typography>
+                        <span>Cart Items({data?.length - 1})</span>
+                    </Typography>
+                </div>
                 <Typography>
                     <span>Amount</span>
                     <span style={{ color: "green", fontWeight: "bold" }} >{total} Rs</span>
@@ -152,8 +156,10 @@ const Total = ({ data }) => {
                     <span>Total</span>
                     <span style={{ color: "green", fontWeight: "bold" }} >{total + 50} Rs</span>
                 </Typography>
-                <button onClick={handlePay} >Buy</button>
+                <button onClick={handlePay}>Buy</button> 
+            
             </StyledPaper>
+            </div>
         </>
     )
 }

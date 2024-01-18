@@ -29,7 +29,11 @@ const ProductContainer = styled(Box)(({theme})=>({
     flexWrap:"wrap",
 }))
 
-
+const RestaurantHeading = styled(Typography)(({theme})=>({
+    color:"#2F3A8F",
+    fontFamily:"Courier New,cursive",
+    fontWeight:"600",
+}))
 
 const Restaurants = () => {
 
@@ -51,7 +55,7 @@ const Restaurants = () => {
         <TableHead>
             <TableRow>
                 <TableCell sx={{ textAlign: "center" }} >
-                    <Typography variant="h5" >All Restaurants</Typography>
+                    <RestaurantHeading variant="h3" >All Restaurants</RestaurantHeading>
                 </TableCell>
             </TableRow>
         </TableHead>

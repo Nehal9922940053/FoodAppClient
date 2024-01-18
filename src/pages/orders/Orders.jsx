@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { Footer, Navbar } from "../../components"
 import { getOrderedProducts } from "../../store/builderFunctions";
-import { useGetRestaurantID } from "../../hooks/useGetUserID";
+import { useGetRestaurantID } from "../../hooks/getID";
 import {Box, Button, Table, TableBody, TableCell, TableHead, TableRow ,styled} from "@mui/material";
 import DoneIcon from '@mui/icons-material/Done';
 import { changeStatus } from "../../services/api";

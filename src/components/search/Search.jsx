@@ -14,9 +14,9 @@ const Container = styled(Box)(({theme})=>({
     display:"flex",
     width:"80%",
     position:"relative",
-    background:"rgba(200, 206, 213, 1)",
+    background:"rgb(255, 255, 255)",
     padding:"0 1.2rem",
-    borderRadius:"5px",
+    borderRadius:"50px",
     alignItems:"center",
     "& > input":{
         width:"100%",
@@ -54,7 +54,7 @@ overflowY:"scroll",
 const Search = () => {
 
     // creating a state for the input word 
-    const [text, setText] = useState(null)
+    const [text, setText] = useState('')
     const dispatch = useDispatch()
     const navigate = useNavigate()
 

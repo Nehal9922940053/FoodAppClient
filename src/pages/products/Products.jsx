@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from "react-redux"
-import { useGetRestaurantID } from "../../hooks/useGetUserID"
+import { useGetRestaurantID } from "../../hooks/getID"
 import { deleteProduct, getSingleRestaurantProducts } from "../../store/builderFunctions"
 import { Card, Footer } from "../../components"
 import {Box, styled} from '@mui/material'
@@ -34,7 +34,7 @@ const Container = styled(Box)(({ theme }) => ({
 const Products = () => {
     const restaurantID = useGetRestaurantID()
     const data = useSelector((state) => state.restaurants.singleRestaurantProducts)
-    const [products, setProducts] = useState(data)
+    const [products, setProducts] = useState(data);
 
     const dispatch = useDispatch()
 
@@ -45,8 +45,18 @@ const Products = () => {
 
     // deleting item function 
     const handleDelete = (id, restaurantID) => {
-        dispatch(deleteProduct({ productID: id, restaurantID }))
-    }
+        dispatch(
+          deleteProduct({
+            productID: id,
+            restaurantID,
+            cb: (data) => {
+              if (data.success === "Item removed successfully") {
+                dispatch(getSingleRestaurantProducts(restaurantID));
+              }
+            },
+          })
+        );
+      };
 
 
     return (

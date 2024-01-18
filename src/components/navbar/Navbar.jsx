@@ -51,6 +51,9 @@ const DrawerBtn = styled(Box)(({theme}) => ({
 
 
 
+
+
+
 const Navbar = () => {
 
 
@@ -78,8 +81,8 @@ const handleClose = () => {
 
   return (
     <Header sx={{ 
-      background : isScrolled ? "rgb(202,213,223)" : "none",
-      boxShadow  :  isScrolled ? "rgba(0,0,0,0.16) 0px 1px 4px" : "none"
+      background : isScrolled ? "rgb(255,0,202)" : "none",
+      boxShadow  :  isScrolled ? "rgba(0,0,0,0.16)" : "none" // 0px 1px 4px
     }}>
     <StyledToolbar>
 

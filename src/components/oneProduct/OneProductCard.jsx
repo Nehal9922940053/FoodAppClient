@@ -13,7 +13,7 @@ const Container = styled(Grid)(({ theme }) => ({
     padding: "5rem 0 0 0",
     minHeight:"100vh",
     height:"auto",
-    backdropFilter: "blur(5px)",
+    backdropFilter: "blur(0px)",
 }))
 
 
@@ -26,20 +26,22 @@ const Bg = styled(Box)(({ theme }) => ({
     zIndex: -1,
     height: "100%",
     width: "100%",
-    filter: "brightness(20%)",
+    //  backgroundColor: "#FF7722",
+     backgroundImage: "linear-gradient( 135deg, #FEB692 10%, #EA5455 100%)"
+    /* filter: "brightness(80%)",
     "& > img": {
-        filter: "grayscale(1)",
+        filter: "grayscale(0)",
         height: "100%",
         width: "100%",
         objectFit: "cover"
-    }
+    }*/
 }))
 
 const Left = styled(Grid)(({ theme }) => ({
     padding: "1rem",
     "&>img": {
-        height: "80%",
-        width: "80%",
+        height: "73%",
+        width: "73%",
         borderRadius: "20px",
         objectFit: "cover",
     },
@@ -155,10 +157,10 @@ const OneProductCard = ({ item, restaurantID }) => {
             <Box sx={{
                 position: "relative", minHeight: "100vh", overflow: "hidden"
             }} >
-                <Container>
+                <Container container>
                     {/* food image start  */}
                     <Left item xs={12} sm={12} lg={6} md={12} sx={{ display: "flex", justifyContent: "center", alignItems: "center" }} >
-                        <img src={item.productImg} alt={item.productName} />
+                     <img src={item.productImg} alt={item.productName} />
                     </Left>
                     {/* food image end */}
 
@@ -203,7 +205,7 @@ const OneProductCard = ({ item, restaurantID }) => {
                     </Right>
                 </Container>
                 <Bg>
-                    <img src={item.productImg} alt={item.productName} />
+                   {/* <img src={item.productImg} alt={item.productName} />*/}
                 </Bg>
             </Box >
         </>

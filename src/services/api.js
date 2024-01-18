@@ -2,7 +2,7 @@ import axios from 'axios';
 
 axios.defaults.withCredentials = true;
 
-const  URL = "http://localhost:8000";
+const URL = "http://localhost:8000";
 
 export const signupUser = async (data) => {
     try {
@@ -22,7 +22,7 @@ export const loginUser = async (data) => {
 
 export const signupRestaurant = async (data) => {
     try {
-        return await axios.post(`${URL}/restaurant/signup`,data)
+        return await axios.post(`${URL}/restaurant/signup`, data)
     } catch (error) {
         console.log(error, "error while calling signupRestaurant api");
     }
@@ -30,7 +30,7 @@ export const signupRestaurant = async (data) => {
 
 export const loginRestaurant = async (data) => {
     try {
-        return await axios.post(`${URL}/restaurant/login`,data)
+        return await axios.post(`${URL}/restaurant/login`, data)
     } catch (error) {
         console.log(error, "error while calling loginRestaurant api");
     }
@@ -57,7 +57,7 @@ export const verifyUser = async () => {
     try {
         return await axios.get(`${URL}/user/verifyUser`)
     } catch (error) {
-        console.log(error, "error while calling verifyUser api");
+        console.log(error, "error while calling verifyUser api"); //error message
     }
 }
 
@@ -65,7 +65,7 @@ export const verifyRestaurant = async () => {
     try {
         return await axios.get(`${URL}/restaurant/verifyRestaurant`)
     } catch (error) {
-        console.log(error, "error while calling verifyUser api");
+        console.log(error, "error while calling verifyUser api"); //error message
     }
 }
 

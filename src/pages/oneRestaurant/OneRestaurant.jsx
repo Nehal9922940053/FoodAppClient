@@ -46,12 +46,12 @@ const OneRestaurant = () => {
     return (
         <>
             <Container>
-                {/* name of the restaurant  */}
-                <Typography variant="h6" >{data?.name}</Typography>
+              
+                {/* name of the restaurant    <Typography variant="h6" >{data?.name}</Typography>
                 <Typography variant="h6"  sx={{ fontSize: "0.8rem !important" }} >{data.address}</Typography>
                 <Typography variant="h6" sx={{ fontSize: "0.8rem !important" }} >Opening Time {data.opening}</Typography>
                 <Typography variant="h6" sx={{ fontSize: "0.8rem !important" }} >Closing Time {data.closing}</Typography>
-
+*/}
                 {/* all the items/products of the restaurant  */}
                 <ProductContainer>
                     {

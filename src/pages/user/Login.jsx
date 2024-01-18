@@ -136,7 +136,7 @@ const Login = () => {
     const {setRole} = useGlobalContext();
     const [formValues, setFormValues] = useState(initialValues);
     // const [showPassword, SetShowPassword] =useState(false);
-    const [cookies, setCookies] = useState(["access_token"]);
+    const [cookies, setCookies] = useCookies(["access_token"]);
     const navigate = useNavigate()
 
 
@@ -164,7 +164,7 @@ const Login = () => {
       } 
     }else{
       toast.error("Something went wrong")
-      navigate("/signup")
+      // navigate("/")
     }
   }
     

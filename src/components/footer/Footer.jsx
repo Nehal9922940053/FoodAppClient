@@ -1,20 +1,30 @@
 import React from 'react'
-import { Divider, Grid, Box, styled } from '@mui/material'
+import {Divider, Grid, Box, styled } from '@mui/material'
 import logo from "../../assets/images/logo.png"
-import { dineVerse, footerAbout, forEnterprises, forRestaurants, learnMore } from '../../assets/data/data'
+import { GalaxyFoodie, footerAbout, forEnterprises, forRestaurants, learnMore } from '../../assets/data/data'
 import { Link } from 'react-router-dom'
 
 //styled components
+const Divide = styled(Divider)(({theme})=>({
+    background:"#fff",
+}))
+
+
+const FooterHeading = styled(Box)(({theme})=>({
+    color:"#fff",
+    fontWeight:"bolder",
+}))
 
 const Container = styled(Box)(({theme})=>({
     display:"flex",
     flexDirection:"column",
     gap:"2rem",
     padding:"2rem 1.5rem",
-    background:"rgb(93, 118, 159)",
+    // background:"rgb(93, 118, 159)",
+    backgroundImage: "linear-gradient( 111.4deg,  rgba(7,7,9,1) 6.5%, rgba(27,24,113,1) 93.2% )",
     "& > small":{
-        color:"lightgray",
-        textAlign:"center"
+        color:"#fff",
+        textAlign:"center",
     }
 }))
 
@@ -29,7 +39,8 @@ const Img = styled(Box)(({theme})=>({
     display:"flex",
     justifyContent:"center",
     alignItems:"center",
-    background:"rgb(202, 213, 223)"
+    // background:"rgb(202, 213, 223)"
+    background:"#fff",
 }))
 
 const ContentContainer = styled(Box)(({theme})=>({
@@ -46,7 +57,8 @@ const Content = styled(Box)(({theme})=>({
     flex:1,
     padding:"0.5rem",
     "& > a":{
-        color:"rgb(202, 213, 223)"
+        // color:"rgb(202, 213, 223)"
+        color:"#fff"
     }
 }))
 
@@ -69,7 +81,7 @@ const Footer = () => {
 
                         {/* about dine start  */}
                         <Content>
-                            <h3>ABOUT DINE</h3>
+                            <FooterHeading>ABOUT GalaxyFoodie</FooterHeading>
                             {
                                 footerAbout.map((item) => (
                                     <Link key={item.id}>{item.name}</Link>
@@ -80,9 +92,9 @@ const Footer = () => {
 
                         {/* dine verse start  */}
                         <Content>
-                            <h3>DINE VERSE</h3>
+                            <FooterHeading>GalaxyFoodie</FooterHeading>
                             {
-                                dineVerse.map((item) => (
+                                GalaxyFoodie.map((item) => (
                                     <Link key={item.id} >{item.name}</Link>
                                 ))
                             }
@@ -91,7 +103,7 @@ const Footer = () => {
 
                         {/* restaurants start  */}
                         <Content>
-                            <h3>RESTAURANTS</h3>
+                            <FooterHeading>RESTAURANTS</FooterHeading>
                             {
                                 forRestaurants.map((item) => (
                                     <Link key={item.id} >{item.name}</Link>
@@ -102,7 +114,7 @@ const Footer = () => {
 
                         {/* learn more start  */}
                         <Content>
-                            <h3>LEARN MORE</h3>
+                            <FooterHeading>LEARN MORE</FooterHeading>
                             {
                                 learnMore.map((item) => (
                                     <Link key={item.id} >{item.name}</Link>
@@ -113,7 +125,7 @@ const Footer = () => {
 
                         {/* enterprises start  */}
                         <Content>
-                            <h3>ENTERPRISES</h3>
+                            <FooterHeading>ENTERPRISES</FooterHeading>
                             {
                                 forEnterprises.map((item) => (
                                     <Link key={item.id}>{item.name}</Link>
@@ -124,9 +136,9 @@ const Footer = () => {
                     </ContentContainer>
                 </Grid>
             </Grid>
-            <Divider />
+            <Divide/>
             
-            <small>By continuing past this page, you agree to our Terms of Service, Cookie Policy, Privacy Policy and Content Policies. All trademarks are properties of their respective owners. 2008-2023 © Dine™ Ltd. All rights reserved.</small>
+            <small>By continuing past this page, you agree to our Terms of Service, Cookie Policy, Privacy Policy and Content Policies. All trademarks are properties of their respective owners. 1997-2023 © GalaxyFoodie™ Ltd. All rights reserved.</small>
         </Container>
     )
 }

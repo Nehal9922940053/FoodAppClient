@@ -1,8 +1,8 @@
 import React, { useEffect } from "react"
-import {Box, Table, TableBody, TableCell, TableHead, TableRow,styled } from "@mui/material"
+import {Box, Table, TableBody, TableCell, TableHead, TableRow,Typography,styled } from "@mui/material"
 import { useDispatch, useSelector } from 'react-redux'
 import { getPastOrders } from '../../store/builderFunctions'
-import { useGetUserID } from '../../hooks/useGetUserID'
+import { useGetUserID } from '../../hooks/getID'
 
 
 //styled Components
@@ -44,6 +44,12 @@ const Container = styled(Box)(({ theme }) => ({
 }))
 
 
+const PastOrdersHeading = styled(Typography)(({theme})=>({
+    color:"#2F3A8F",
+    fontFamily:"Courier New,cursive",
+    fontWeight:"600",
+    textAlign:"center",
+}))
 
 
 
@@ -70,7 +76,7 @@ const PastOrders = () => {
                         <h1>No items ordered yet</h1>
                     ) : (
                         <>
-                            <h2>Past Orders</h2>
+                        <PastOrdersHeading variant="h3" >Past Orders</PastOrdersHeading>
                             <Table>
                                 <TableHead>
                                     <TableRow>

@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import {Box, Button, TextField, Typography, styled} from '@mui/material'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import {Link, useNavigate} from "react-router-dom";
-import { signupUser } from '../../services/api';
+import {signupUser} from '../../services/api';
 import {toast} from 'react-toastify';
 
 
@@ -124,17 +124,17 @@ const Signup = () => {
   const [formValues, setFormValues] = useState(initialValues);
 
   const handleChange = (e) => {
-    setFormValues({ ...formValues, [e.target.name]: e.target.value})
+    setFormValues({...formValues, [e.target.name]: e.target.value})
   }
 
   const handleSignup = async (e) =>{
     e.preventDefault();
     const {data}  = await signupUser(formValues);
     if(data){
-      if(data.info){
-        toast.info(data.info);
-    }else if(data.error){
-      toast.error(data.error);
+      if(data.error){
+        toast.error(data.error);
+    }else if(data.info){
+      toast.info(data.info);
      }else{
       toast.success(data.success);
       navigate("/login");

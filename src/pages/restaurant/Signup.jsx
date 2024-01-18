@@ -1,9 +1,10 @@
-import React from 'react'
-import {Box, Button, TextField, Link, Typography,Grid, styled} from '@mui/material'
+import React, {useState} from 'react'
+import {Box, Button, TextField, Typography,Grid, styled} from '@mui/material'
 import SignupBg from '../../assets/images/Bglogin.webp'
 import RestaurantMenuIcon from '@mui/icons-material/RestaurantMenu';
-
-
+import {Link, useNavigate} from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { signupRestaurant } from '../../services/api';
 
 const Container = styled(Box)`
   min-height:100vh;
@@ -104,8 +105,58 @@ const SigninLink = styled('p')`
 
 `;
 
+const LoginPage = styled(Link)`
+color:#007FFF;
+
+`;
+
+
 
 const Signup = () => {
+
+
+  const navigate = useNavigate();
+
+  const initialValues = {
+      name: "",
+      address: "",
+      openingandclosingTime: "",
+      phone: "",
+      email: "",
+      password: ""
+     
+      
+  }
+
+  const [formValues, setFormValues] = useState(initialValues);
+ const [showPassword, setShowPassword] = useState(false)
+
+  const handleChange = (e) => {
+      setFormValues({ ...formValues, [e.target.name]: e.target.value })
+  }
+
+  const handleSignup = async (e) => {
+      e.preventDefault();
+      const {data} = await signupRestaurant(formValues);
+      if(data){
+          if(data.error){
+              toast.error(data.error)
+          }else if (data.info){
+              toast.info(data.info)
+          }else{
+              toast.success(data.success);
+              navigate("/restaurantLogin")
+          }
+      }else{
+          toast.error("Something went wrong")
+      }
+  }
+
+
+
+
+
+
   return (
     <Container>
     <Bg>
@@ -120,16 +171,17 @@ const Signup = () => {
     </Text>
     <Grid container spacing={2}>
     <Grid item xs={12} sm={6}>
+
     <TextField
     margin="normal"
     required
     fullWidth
     id="restaurant name"
     label="Restaurant Name"
-    name="Restaurant Name"
-    autoComplete="restaurant name"
+    name="name"
     size="Normal"
-    autoFocus
+    value={formValues.name}
+    onChange={handleChange}
       />
     </Grid>
     <Grid item xs={12} sm={6}>
@@ -139,37 +191,41 @@ const Signup = () => {
     fullWidth
     id="restaurant address"
     label="Restaurant Address"
-    name="Restaurant address"
-    autoComplete="restaurant address"
+    name="address"
     size="Normal"
-    autoFocus
+    value={formValues.address}
+    onChange={handleChange}
     />
+
     </Grid>
     <Grid item xs={12} sm={6}>
     <TextField
-    margin="small"
+    margin="normal"
     required
     fullWidth
     id="opening and closing time"
     label="Opening And Closing Time"
-    name="Opening And Closing Time"
-    autoComplete="opening and closing time"
+    name="openingandclosingTime"
     size="Normal"
-    autoFocus
+    value={formValues.openingandclosingTime}
+    onChange={handleChange}
     />
+
+
     </Grid>  
     
     <Grid item xs={12} sm={6}>
     <TextField
-   margin="small"
+   margin="normal"
    required
    fullWidth
    id="phoneNumber"
    label="Phone Number"
-   name="phone Number"
-   autoComplete="Phone Number"
+   name="phone"
    size="Normal"
-   autoFocus
+   value={formValues.phone}
+   onChange={handleChange}
+
    />  
   </Grid>
    <Grid item xs={12} sm={12}>
@@ -180,33 +236,35 @@ const Signup = () => {
     id="email"
     label="Email Address"
     name="email"
-    autoComplete="email"
     size="Normal"
-    autoFocus
+    value={formValues.email}
+    onChange={handleChange}
+    
    />
     </Grid>
     <Grid item xs={12} sm={12}>
    <TextField
-    margin="medium"
+    margin="normal"
     required
     fullWidth
     name="password"
     label="Password"
     type="password"
     id="password"
-    autoComplete="current-password"
     size="Normal"
+    value={formValues.password}
+    onChange={handleChange}
    />
    </Grid>
    </Grid>
   <ButtonWrapper>
-   <SignupButton onClick={""}>Sign up</SignupButton>
+   <SignupButton onClick={handleSignup}>Sign up</SignupButton>
   </ButtonWrapper>
 
   <SignInWrapper>
    <SigninLink>Have an account?{" "}
    <span>
-   <Link  to="/signup">Sign in</Link>
+   <LoginPage  to="/restaurantLogin">Sign in</LoginPage>
    </span>
    </SigninLink>
 </SignInWrapper>

@@ -24,30 +24,35 @@ const Menu = () => {
 
 
 const dispatch = useDispatch();
-    const data = useSelector((state) => state.restaurants.allRestaurantProduct)
-
+const data = useSelector((state) => state.restaurants.allRestaurantProduct);
+    
 
     useEffect(() => {
         if (data?.length === 0) {
-            dispatch(getAllProducts())
+          dispatch(getAllProducts());
         }
-    }, [])
+      }, []);
+
+
 
     return (
         <>
-
             <Container>
-                {
-                    data?.map((item) => (
+                {data?.map((item) => (
                         item.products.map((itm) => (
-                            <Card key={itm._id} data={itm} restaurantName={item.restaurantName} restaurantID={item.id} />
+                            <Card 
+                            key={itm._id} 
+                            data={itm} 
+                            restaurantName={item.restaurantName} 
+                            restaurantID={item.id}
+                            />
                         ))
                     ))
                 }
             </Container>
             <Footer />
         </>
-    )
-}
+    );
+};
 
-export default Menu
+export default Menu;

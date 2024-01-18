@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { deleteItemFromCart, getUserCart } from "../../store/builderFunctions"
 import { Box, Button, Grid, Table, TableBody, TableCell, TableHead, TableRow, styled } from "@mui/material"
-import { useGetUserID } from '../../hooks/useGetUserID'
+import { useGetUserID } from '../../hooks/getID'
 import Total from "./Total"
 import cartEmpty from '../../assets/images/emptyCart.png'
 import { Footer } from '../../components/index'
@@ -61,9 +61,18 @@ const Cart = () => {
 
     // handleDelete function 
     const handleDelete = (id, userID) => {
-        dispatch(deleteItemFromCart({ productID: id, userID }))
-    }
-
+        dispatch(
+          deleteItemFromCart({
+            productID: id,
+            userID,
+            cb: (data) => {
+              if (data.success === "Removed from cart") {
+                dispatch(getUserCart(userID));
+              }
+            },
+          })
+        );
+      };
     // when the userID is present then only the dispatch will work 
     useEffect(() => {
         if (userID) {
@@ -120,7 +129,10 @@ const Cart = () => {
                     </Grid>
 
                     <Grid item lg={4} md={4} sm={12} xs={12} sx={{ padding: "1rem", }} >
-                        <Total data={cart} userID={userID} />
+                    <div>
+                     <Total data={cart} userID={userID} />
+                    </div>   
+                    
                     </Grid>
                 </Grid>
             </Container>

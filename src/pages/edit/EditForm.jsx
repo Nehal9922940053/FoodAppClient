@@ -2,8 +2,8 @@ import React ,{ useEffect, useState } from "react";
 import {Box, Paper, Button, FormControl, InputLabel, MenuItem, Select, TextField, Typography, styled } from "@mui/material"
 import FileBase from 'react-file-base64'
 import { useDispatch } from 'react-redux'
-import { updateProduct } from "../../store/builderFunctions"
-import { useGetRestaurantID } from '../../hooks/useGetUserID'
+import {getSingleRestaurantProducts, updateProduct } from "../../store/builderFunctions"
+import { useGetRestaurantID } from '../../hooks/getID'
 import { useNavigate } from "react-router-dom"
 
 //styled Components
@@ -78,9 +78,19 @@ const EditForm = ({ data }) => {
 
     const handleEdit = async (e) => {
         e.preventDefault();
-        dispatch(updateProduct({ data: formValues, restaurantID }))
-        navigate("/allProducts")
-    }
+        dispatch(
+          updateProduct({
+            data: formValues,
+            restaurantID,
+            cb: (data) => {
+              if (data.success === "Product updated successfully") {
+                dispatch(getSingleRestaurantProducts(restaurantID));
+              }
+            },
+          })
+        );
+        navigate("/allProducts");
+      };
 
     return (
         <>

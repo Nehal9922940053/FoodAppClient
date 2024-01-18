@@ -1,7 +1,13 @@
-import React from 'react'
-import {Box, Button, TextField, Link, Typography, styled} from '@mui/material';
+import React, {useState} from 'react'
+import {Box, Button, TextField, Typography, styled} from '@mui/material';
 import LoginBg from '../../assets/images/Bglogin.webp'
 import RestaurantMenuIcon from '@mui/icons-material/RestaurantMenu';
+import {toast} from 'react-toastify';
+import { loginRestaurant } from '../../services/api';
+import { useCookies } from 'react-cookie';
+import {Link, useNavigate } from 'react-router-dom';
+import { useGlobalContext } from '../../context/context';
+
 
 
 const Container = styled(Box)`
@@ -71,6 +77,7 @@ const ForgotPassword = styled(Link)`
   Position:fixed;
   left:35px;
   bottom: 165px;
+  color:#007FFF;
 `;
 
 const ButtonWrapper = styled(Box)`
@@ -107,7 +114,60 @@ const SignupLink = styled('p')`
 `;
 
 
+const SignupPage = styled(Link)`
+color:#007FFF;
+
+`;
+
+
+
+
+const initialValues = {
+  email: "",
+  password: "",
+}
+
+
 const Login = () => {
+
+
+  const navigate = useNavigate()
+  const { setRole } = useGlobalContext()
+
+
+  const [formValues, setFormValues] = useState(initialValues);
+  const [showPassword, setShowPassword] = useState(false)
+  const [cookies, setCookies] = useCookies(["access_token"])
+
+  const handleChange = (e) => {
+      setFormValues({ ...formValues, [e.target.name]: e.target.value })
+  }
+
+  const handleLogin = async (e) => {
+      e.preventDefault();
+      const {data}  = await loginRestaurant(formValues);
+      if (data) {
+          if (data.error) {
+              toast.error(data.error)
+          } else {
+              toast.success(data.success);
+              setCookies("access_token", data.token)
+              localStorage.setItem("restaurantID", data.restaurantID);
+              localStorage.setItem("email", data.email);
+              localStorage.setItem("role", data.role);
+              setRole(data.role)
+              navigate("/")
+          }
+      } else {
+          toast.error("Something went wrong");
+      }
+  }
+
+
+
+
+
+
   return (
     <Container>
     <Bg>
@@ -120,36 +180,41 @@ const Login = () => {
    <Text variant="h5" gutterBottom>
    Restaurant Login
  </Text>
-    <TextField
-    margin="normal"
+    <TextField 
+    onChange={handleChange}
     required
     fullWidth
+    value={formValues.email}
+    margin="normal"
     id="email"
     label="Email Address"
     name="email"
-    autoComplete="email"
-    autoFocus
+    type="email"
    />
-   <TextField
-    margin="normal"
+   <TextField 
+    onChange={handleChange}
     required
-    fullWidth
+    fullWidth  
+    value={formValues.password}
+    margin="normal"
     name="password"
     label="Password"
-    type="password"
+    type={showPassword ? "text" : "password"}
     id="password"
-    autoComplete="current-password"
+   
+   
+    
    />
    <ForgotPassword  to="/restaurantForgot">Forgot Password?</ForgotPassword>
    
    <ButtonWrapper>
-   <LoginButton onClick={""}>Login</LoginButton>
+   <LoginButton onClick={handleLogin}>Login</LoginButton>
   </ButtonWrapper>
 
     <SignupWrapper>
    <SignupLink>Don't have an account?{" "}
    <span>
-   <Link  to="/signup">Sign up</Link>
+   <SignupPage  to="/restaurantSignup">Sign up</SignupPage>
    </span>
    </SignupLink>
   </SignupWrapper>

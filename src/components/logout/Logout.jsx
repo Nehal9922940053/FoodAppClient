@@ -26,6 +26,7 @@ const Logout = ({open, handleClose}) => {
 
 
   return (
+     <>
    <Menu 
         sx={{ marginTop:"0.8rem" }}
         anchorEl={open}
@@ -39,6 +40,7 @@ const Logout = ({open, handleClose}) => {
 
 
    </Menu>
+   </>
   )
 }
 
